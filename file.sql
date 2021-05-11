@@ -558,3 +558,49 @@ Table-B
 A Bronx Tale	1993
 Bang the Drum Slowly	1973
 Limitless	2011
+
+SELECT name
+FROM teacher
+WHERE dept IS NULL
+
+SELECT teacher.name, dept.name
+ FROM teacher INNER JOIN dept
+           ON (teacher.dept=dept.id)
+
+SELECT teacher.name, dept.name
+ FROM teacher LEFT JOIN dept
+           ON (teacher.dept=dept.id)
+
+SELECT teacher.name, dept.name
+ FROM teacher RIGHT JOIN dept
+           ON (teacher.dept=dept.id)
+
+
+SELECT name, 
+CASE 
+  WHEN mobile IS NULL THEN '07986 444 2266' 
+  ELSE mobile 
+  END
+FROM teacher
+
+SELECT name, COALESCE(mobile,'07986 444 2266')
+FROM teacher
+
+SELECT teacher.name, COALESCE(dept.name,'None')
+ FROM teacher LEFT JOIN dept
+           ON (teacher.dept=dept.id)
+
+SELECT COUNT(name),COUNT(mobile)
+FROM teacher
+
+SELECT dept.name ,COUNT(dept)
+From teacher RIGHT JOIN dept ON dept.id = teacher.dept
+GROUP BY dept.name
+
+SELECT name,
+CASE dept
+WHEN 1 THEN 'Sci'
+WHEN 2 THEN 'Sci'
+ELSE 'Art'
+END
+FROM teacher
