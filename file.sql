@@ -631,3 +631,58 @@ Splint	Computing
 Spiregrain	Other
 Cutflower	Other
 Deadyawn	Other
+
+SELECT COUNT(id)
+FROM stops
+
+SELECT id
+FROM stops
+WHERE name= 'Craiglockhart'
+
+SELECT id,name
+FROM stops
+JOIN route ON stops.id = route.stop
+WHERE company = 'LRT' AND num = '4'
+
+SELECT company, num, COUNT(*)
+FROM route WHERE stop=149 OR stop=53
+GROUP BY company, num
+HAVING COUNT(*) = 2
+
+SELECT a.company, a.num, a.stop, b.stop
+FROM route a JOIN route b ON
+  (a.company=b.company AND a.num=b.num)
+WHERE a.stop=53 and b.stop =149
+
+
+SELECT a.company, a.num, stopa.name, stopb.name
+FROM route a JOIN route b ON
+  (a.company=b.company AND a.num=b.num)
+  JOIN stops stopa ON (a.stop=stopa.id)
+  JOIN stops stopb ON (b.stop=stopb.id)
+WHERE stopa.name='Craiglockhart' and stopb.name ='London Road'
+
+SELECT DISTINCT a.company, a.num
+FROM route a JOIN route b ON
+  (a.company=b.company AND a.num=b.num)
+WHERE a.stop=115 and b.stop =137
+
+SELECT a.company, a.num
+FROM route a JOIN route b ON
+  (a.company=b.company AND a.num=b.num)
+  JOIN stops stopa ON (a.stop=stopa.id)
+  JOIN stops stopb ON (b.stop=stopb.id)
+WHERE stopa.name='Craiglockhart' and stopb.name = 'Tollcross'
+
+SELECT stopb.name,a.company,a.num
+FROM route a JOIN route b ON
+  (a.company=b.company AND a.num=b.num)
+  JOIN stops stopa ON (a.stop=stopa.id)
+  JOIN stops stopb ON (b.stop=stopb.id)
+WHERE stopa.name = 'Craiglockhart'
+
+SELECT DISTINCT a.name, b.name
+  FROM stops a JOIN route z ON a.id=z.stop
+  JOIN route y ON y.num = z.num
+  JOIN stops b ON y.stop=b.id
+ WHERE a.name='Craiglockhart' AND b.name ='Haymarket'
